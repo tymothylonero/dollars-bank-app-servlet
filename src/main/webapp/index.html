@@ -31,8 +31,8 @@
     		</button>
 			<a class="navbar-brand">Dollars Bank</a>
 			<form class="d-flex">
-				<button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
-				<button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+				<button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+				<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
 			</form>
 		</div>
 	</nav>
@@ -46,6 +46,9 @@
 		aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+			
+				<form action="HomePageServlet" method="POST">
+			
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">Log into your Dollars Bank account</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -53,16 +56,19 @@
 				</div>
 				<div class="modal-body">
 					<p>Username:</p>
-					<input class="form-control me-2" type="search" aria-label="Username">
+					<input class="form-control me-2" type="search" aria-label="Username" id="username" name="username" required>
 					<p></p>
 					<p>Password:</p>
-					<input class="form-control me-2" type="password" aria-label="Password">
+					<input class="form-control me-2" type="password" aria-label="Password" id="password" name="password" required>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary">Login</button>
 				</div>
+				
+				</form>
+				
 			</div>
 		</div>
 	</div>
@@ -86,8 +92,11 @@
 					<p>Password:</p>
 					<input class="form-control me-2" type="password" aria-label="Password">
 					<p></p>
-					<p>Confirm password:</p>
-					<input class="form-control me-2" type="password" aria-label="Password">
+					<p>Email:</p>
+					<input class="form-control me-2" type="search" aria-label="Email">
+					<p></p>
+					<p>Address:</p>
+					<input class="form-control me-2" type="search" aria-label="Address">
 					<p></p>
 					<p>Amount to deposit initially:</p>
 					<div class="input-group mb-3">

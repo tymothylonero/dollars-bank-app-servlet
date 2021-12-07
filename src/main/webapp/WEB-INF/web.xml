@@ -5,13 +5,13 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-  	<servlet-name>DollarsBankServletAppV1</servlet-name>
-  	<display-name>DollarsBankServletAppV1</display-name>
+  	<servlet-name>HomePageServlet</servlet-name>
+  	<display-name>HomePageServlet</display-name>
   	<description></description>
   	<servlet-class>com.dollarsbank.servlet.HomePageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>HomePageServlet</servlet-name>
-  	<url-pattern>/DollarsBank</url-pattern>
+  	<url-pattern>/HomePageServlet</url-pattern>
   </servlet-mapping>
 </web-app>

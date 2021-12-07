@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dollarsbank.util.PrintUtility;
+
 public class HomePageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -48,9 +50,10 @@ public class HomePageServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 
-		pw.println("<html>");
-		pw.println("<head> <title>List of movies</title> </head>");
-		pw.println("<body>");
+		//pw.println("<html>");
+		//pw.println("<head> <title>DollarsBank</title> </head>");
+		//pw.println("<body>");
+		pw.println(PrintUtility.getPageStart(false));
 
 		try {
 			// Put user input into SQL statement
@@ -62,7 +65,7 @@ public class HomePageServlet extends HttpServlet {
 
 			if (rs.next()) {
 
-				// Print list of movies
+				// Print test
 				pw.println("<h1>User found in database:</h1>");
 				do {
 					String name = rs.getString("username");
@@ -71,7 +74,7 @@ public class HomePageServlet extends HttpServlet {
 					pw.println("<p>" + pass + "</p>");
 				} while (rs.next());
 			} else {
-				pw.println("<h1>No movies found!</h1>");
+				pw.println("<h1>No user found!</h1>");
 			}
 
 			rs.close();
@@ -83,8 +86,10 @@ public class HomePageServlet extends HttpServlet {
 
 		}
 
-		pw.println("</body>");
-		pw.println("</html>");
+		//pw.println("</body>");
+		//pw.println("</html>");
+		//pw.println("<script>alert(\"Could not find a user with those credentials. Try again.\")</script>");
+		pw.println(PrintUtility.getPageEnd(false));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
