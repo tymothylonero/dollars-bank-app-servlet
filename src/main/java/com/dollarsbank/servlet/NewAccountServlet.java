@@ -30,7 +30,7 @@ public class NewAccountServlet extends HttpServlet {
 		conn = ConnectionManager.getConnection();
 		try {
 			userCheck = conn.prepareStatement("SELECT * FROM user WHERE username=?");
-			insertUser = conn.prepareStatement("INSERT INTO user");
+			insertUser = conn.prepareStatement("INSERT INTO user (`username`, `password`, `email`, `address`, `balance`) VALUES (?, ?, ?, ?, ?);");
 			getUser = conn.prepareStatement("SELECT * FROM user WHERE username=?");
 			insertTransaction = conn.prepareStatement("INSERT INTO transaction");
 		} catch (SQLException e) {
@@ -57,7 +57,12 @@ public class NewAccountServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
-		String depositAmount = request.getParameter("deposit");
+		Double depositAmount;
+		if(request.getParameter("deposit").equals("")) {
+			depositAmount = 0.0;
+		} else {
+			depositAmount = Double.parseDouble(request.getParameter("deposit"));
+		}
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
@@ -70,12 +75,17 @@ public class NewAccountServlet extends HttpServlet {
 				pw.println(PrintUtility.getPageEnd(false));
 				return;
 			}
-			pw.println("<h1>Success!</h1>");
+			
+			@SuppressWarnings("unused")
+			ResultSet newUser = insertUser(username, password, email, address, depositAmount);
+			
+			pw.println(PrintUtility.getPageStart(true));
+			pw.println("<h1>Successfully created your new account!</h1>");
+			pw.println(PrintUtility.getPageEnd(true));
 			
 		} catch (SQLException e) {
 			pw.println(PrintUtility.getPageStart(false));
 			pw.println("<h1>Error with SQL connection, cannot retrieve information at this time.</h1>");
-			pw.println("<h4>" + e.toString() + "</h4>");
 			pw.println(PrintUtility.getPageEnd(false));
 		}
 
@@ -97,6 +107,25 @@ public class NewAccountServlet extends HttpServlet {
 			rs.close();
 			return false;
 		}
+	}
+	
+	private ResultSet insertUser(String username, String password, String email, String address, Double deposit) throws SQLException {
+		
+		insertUser.setString(1, username);
+		insertUser.setString(2, password);
+		insertUser.setString(3, email);
+		insertUser.setString(4, address);
+		insertUser.setDouble(5, deposit);
+		
+		int result = insertUser.executeUpdate();
+		
+		if(result == 0)
+			throw new SQLException();
+		
+		getUser.setString(1, username);
+		ResultSet rs = getUser.executeQuery();
+		
+		return rs;
 	}
 
 }
