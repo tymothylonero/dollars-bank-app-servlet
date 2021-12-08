@@ -19,7 +19,7 @@
 	  <div class="bg-dark p-4">
 	    <h5 class="text-white h4">Welcome to Dollars Bank</h5>
 	    <p class="text-muted">Email: dollarsbank@gmail.com</p>
-	    <p class="text-muted">Phone: +1 (800) 1234-567</p>
+	    <p class="text-muted">Phone: +1 (800) 123-4567</p>
 	    <p class="text-muted">Copyright © Dollars Bank 2021</p>
 	  </div>
 	</div>
@@ -47,7 +47,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 			
-				<form action="HomePageServlet" method="POST">
+				<form action="LoggedInServlet" method="POST">
 			
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">Log into your Dollars Bank account</h5>
@@ -80,6 +80,9 @@
 		aria-labelledby="signupModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+			
+				<form action="NewAccountServlet" method="POST">
+			
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">Sign Up for a Dollars Bank account</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -87,28 +90,31 @@
 				</div>
 				<div class="modal-body">
 					<p>Create a username:</p>
-					<input class="form-control me-2" type="search" aria-label="Username">
+					<input class="form-control me-2" type="search" aria-label="Username" id="username" name="username" required>
 					<p></p>
 					<p>Password:</p>
-					<input class="form-control me-2" type="password" aria-label="Password">
+					<input class="form-control me-2" type="password" aria-label="Password" id="password" name="password" required>
 					<p></p>
 					<p>Email:</p>
-					<input class="form-control me-2" type="search" aria-label="Email">
+					<input class="form-control me-2" type="search" aria-label="Email" id="email" name="email" required>
 					<p></p>
 					<p>Address:</p>
-					<input class="form-control me-2" type="search" aria-label="Address">
+					<input class="form-control me-2" type="search" aria-label="Address" id="address" name="address" required>
 					<p></p>
 					<p>Amount to deposit initially:</p>
 					<div class="input-group mb-3">
 	  					<span class="input-group-text">$</span>
-	  					<input type="text" class="form-control" aria-label="Initial deposit amount">
+	  					<input type="text" class="form-control" aria-label="Initial deposit amount" id="deposit" name="deposit">
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Create Account</button>
+					<button type="submit" class="btn btn-success">Create Account</button>
 				</div>
+				
+				</form>
+				
 			</div>
 		</div>
 	</div>

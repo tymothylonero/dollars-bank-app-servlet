@@ -3,15 +3,39 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+
   <display-name>Archetype Created Web Application</display-name>
+  
   <servlet>
   	<servlet-name>HomePageServlet</servlet-name>
   	<display-name>HomePageServlet</display-name>
   	<description></description>
   	<servlet-class>com.dollarsbank.servlet.HomePageServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoggedInServlet</servlet-name>
+  	<display-name>LoggedInServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.LoggedInServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>NewAccountServlet</servlet-name>
+  	<display-name>NewAccountServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.NewAccountServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
   	<servlet-name>HomePageServlet</servlet-name>
   	<url-pattern>/HomePageServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoggedInServlet</servlet-name>
+  	<url-pattern>/LoggedInServlet</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
+  	<servlet-name>NewAccountServlet</servlet-name>
+  	<url-pattern>/NewAccountServlet</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
