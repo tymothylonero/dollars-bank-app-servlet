@@ -150,6 +150,27 @@ public class PrintUtility {
 	
 	private static String loggedInModals = "";
 	
+	private static String homeMenu = "	<div style=\"text-align:center;\">\r\n"
+			+ "		<br>\r\n"
+			+ "		<br>\r\n"
+			+ "		<br>\r\n"
+			+ "		<h1>What would you like to do today?</h1>\r\n"
+			+ "		<br>\r\n"
+			+ "		<br>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Deposit</button></div>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Withdraw</button></div>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Transfer Funds</button></div>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Recent Transactions</button></div>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Account Information</button></div>\r\n"
+			+ "		<br>\r\n"
+			+ "		<div><button class=\"btn btn-primary\" type=\"button\">Change Password</button></div>\r\n"
+			+ "	</div>";
+	
 	public static String getPageStart(boolean loggedIn) {
 		
 		if(loggedIn) {
@@ -167,6 +188,10 @@ public class PrintUtility {
 		} else {
 			return loggedOutModals + baseEnd;
 		}
+	}
+	
+	public static String getHomePage(int id, String username, double balance, String email, String address) {
+		return homeMenu;
 	}
 
 }

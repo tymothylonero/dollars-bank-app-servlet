@@ -76,12 +76,15 @@ public class NewAccountServlet extends HttpServlet {
 				return;
 			}
 			
-			@SuppressWarnings("unused")
 			ResultSet newUser = insertUser(username, password, email, address, depositAmount);
 			
-			pw.println(PrintUtility.getPageStart(true));
-			pw.println("<h1>Successfully created your new account!</h1>");
-			pw.println(PrintUtility.getPageEnd(true));
+			if(newUser.next()) {
+				pw.println(PrintUtility.getPageStart(true));
+				pw.println(PrintUtility.getHomePage(1,"",0.0,"",""));
+				pw.println(PrintUtility.getPageEnd(true));
+			} else {
+				throw new SQLException();
+			}
 			
 		} catch (SQLException e) {
 			pw.println(PrintUtility.getPageStart(false));

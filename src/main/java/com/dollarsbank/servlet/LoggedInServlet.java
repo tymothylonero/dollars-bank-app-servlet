@@ -67,19 +67,19 @@ public class LoggedInServlet extends HttpServlet {
 
 				pw.println(PrintUtility.getPageStart(true));
 				
-				pw.println("<h1>User found in database:</h1>");
-				do {
-					String name = rs.getString("username");
-					String pass = rs.getString("password");
-					pw.println("<h3>" + name + "</h3>");
-					pw.println("<p>" + pass + "</p>");
-				} while (rs.next());
+//				pw.println("<h1>User found in database:</h1>");
+//				String name = rs.getString("username");
+//				String pass = rs.getString("password");
+//				pw.println("<h3>" + name + "</h3>");
+//				pw.println("<p>" + pass + "</p>");
+				
+				pw.println(PrintUtility.getHomePage(1,"",0.0,"",""));
 				
 				pw.println(PrintUtility.getPageEnd(true));
 				
 			} else {
 				pw.println(PrintUtility.getPageStart(false));
-				pw.println("<h1>No user found!</h1>");
+				pw.println("<br><br><br><h1 style=\"text-align:center;\">Invalid credentials! Try again.</h1>");
 				pw.println(PrintUtility.getPageEnd(false));
 			}
 
