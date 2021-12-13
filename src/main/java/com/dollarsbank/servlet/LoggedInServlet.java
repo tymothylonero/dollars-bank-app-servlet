@@ -73,7 +73,7 @@ public class LoggedInServlet extends HttpServlet {
 //				pw.println("<h3>" + name + "</h3>");
 //				pw.println("<p>" + pass + "</p>");
 				
-				pw.println(PrintUtility.getHomePage(1,"",0.0,"",""));
+				pw.println(PrintUtility.getHomePage(rs.getInt("id"), rs.getString("username"), rs.getDouble("balance"), rs.getString("email"), rs.getString("address")));
 				
 				pw.println(PrintUtility.getPageEnd(true));
 				

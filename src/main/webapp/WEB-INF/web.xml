@@ -24,6 +24,30 @@
   	<description></description>
   	<servlet-class>com.dollarsbank.servlet.NewAccountServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DepositServlet</servlet-name>
+  	<display-name>DepositServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.DepositServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>WithdrawServlet</servlet-name>
+  	<display-name>WithdrawServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.WithdrawServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>TransferServlet</servlet-name>
+  	<display-name>TransferServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.TransferServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>PasswordServlet</servlet-name>
+  	<display-name>PasswordServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.dollarsbank.servlet.PasswordServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
   	<servlet-name>HomePageServlet</servlet-name>
@@ -36,6 +60,22 @@
   <servlet-mapping>
   	<servlet-name>NewAccountServlet</servlet-name>
   	<url-pattern>/NewAccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DepositServlet</servlet-name>
+  	<url-pattern>/DepositServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>WithdrawServlet</servlet-name>
+  	<url-pattern>/WithdrawServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>TransferServlet</servlet-name>
+  	<url-pattern>/TransferServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PasswordServlet</servlet-name>
+  	<url-pattern>/PasswordServlet</url-pattern>
   </servlet-mapping>
   
 </web-app>
