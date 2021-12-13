@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dollarsbank.util.PrintUtility;
+import com.dollarsbank.util.TransactionUtility;
 
 public class NewAccountServlet extends HttpServlet {
 
@@ -79,8 +80,12 @@ public class NewAccountServlet extends HttpServlet {
 			ResultSet newUser = insertUser(username, password, email, address, depositAmount);
 			
 			if(newUser.next()) {
+				
+				if(depositAmount > 0)
+					TransactionUtility.insertTransaction("Deposit", "Initial Deposit", depositAmount, newUser.getInt("id"));
+				
 				pw.println(PrintUtility.getPageStart(true));
-				pw.println(PrintUtility.getHomePage(1,"",0.0,"",""));
+				pw.println(PrintUtility.getHomePage(newUser.getInt("id"), newUser.getString("username"), newUser.getDouble("balance"), newUser.getString("email"), newUser.getString("address")));
 				pw.println(PrintUtility.getPageEnd(true));
 			} else {
 				throw new SQLException();
