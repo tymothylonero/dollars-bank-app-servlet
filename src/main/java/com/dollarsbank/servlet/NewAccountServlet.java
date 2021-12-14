@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dollarsbank.util.PrintUtility;
-import com.dollarsbank.util.TransactionUtility;
 
 public class NewAccountServlet extends HttpServlet {
 
@@ -33,7 +33,7 @@ public class NewAccountServlet extends HttpServlet {
 			userCheck = conn.prepareStatement("SELECT * FROM user WHERE username=?");
 			insertUser = conn.prepareStatement("INSERT INTO user (`username`, `password`, `email`, `address`, `balance`) VALUES (?, ?, ?, ?, ?);");
 			getUser = conn.prepareStatement("SELECT * FROM user WHERE username=?");
-			insertTransaction = conn.prepareStatement("INSERT INTO transaction");
+			insertTransaction = conn.prepareStatement("INSERT INTO transaction(`type`, `description`, `amount`, `user_id`, `timestamp`) VALUES(?, ?, ?, ?, ?);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,8 +81,19 @@ public class NewAccountServlet extends HttpServlet {
 			
 			if(newUser.next()) {
 				
-				if(depositAmount > 0)
-					TransactionUtility.insertTransaction("Deposit", "Initial Deposit", depositAmount, newUser.getInt("id"));
+				if(depositAmount > 0) {
+					
+					insertTransaction.setString(1, "Deposit");
+					insertTransaction.setString(2, "Initial Deposit");
+					insertTransaction.setString(3, newUser.getString("balance"));
+					insertTransaction.setString(4, newUser.getString("id"));
+					insertTransaction.setString(5, new Date().toString());
+					
+					int result = insertTransaction.executeUpdate();
+					if(result == 0)
+						throw new SQLException();
+					
+				}
 				
 				pw.println(PrintUtility.getPageStart(true));
 				pw.println(PrintUtility.getHomePage(newUser.getInt("id"), newUser.getString("username"), newUser.getDouble("balance"), newUser.getString("email"), newUser.getString("address")));

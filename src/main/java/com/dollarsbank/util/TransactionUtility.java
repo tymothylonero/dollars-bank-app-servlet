@@ -4,14 +4,11 @@ package com.dollarsbank.util;
 
 public class TransactionUtility {
 	
-	public static boolean insertTransaction(String type, String description, double amount, int user_id) {
-		
-		//String timestamp = new Date().toString();
-		return true;
-	}
-	
 	public static String getFiveRecentTransactions(int accountId) {
-		return "";
+		
+		String html = "";
+		
+		return html;
 	}
 
 }

@@ -52,7 +52,6 @@ public class DepositServlet extends HttpServlet {
 
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		//pw.println("<html><p>Id is: " + request.getParameter("id") + "</p></html>");
 		
 		try {
 			
