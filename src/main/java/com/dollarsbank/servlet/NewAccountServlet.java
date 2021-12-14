@@ -72,7 +72,7 @@ public class NewAccountServlet extends HttpServlet {
 			
 			if(userExists(username)) {
 				pw.println(PrintUtility.getPageStart(false));
-				pw.println("<h1>Username already exists! Try another one.</h1>");
+				pw.println(PrintUtility.getErrorAlert("Username already exists! Try another one."));
 				pw.println(PrintUtility.getPageEnd(false));
 				return;
 			}

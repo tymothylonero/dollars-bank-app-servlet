@@ -66,15 +66,7 @@ public class LoggedInServlet extends HttpServlet {
 			if (rs.next()) {
 
 				pw.println(PrintUtility.getPageStart(true));
-				
-//				pw.println("<h1>User found in database:</h1>");
-//				String name = rs.getString("username");
-//				String pass = rs.getString("password");
-//				pw.println("<h3>" + name + "</h3>");
-//				pw.println("<p>" + pass + "</p>");
-				
 				pw.println(PrintUtility.getHomePage(rs.getInt("id"), rs.getString("username"), rs.getDouble("balance"), rs.getString("email"), rs.getString("address")));
-				
 				pw.println(PrintUtility.getPageEnd(true));
 				
 			} else {
