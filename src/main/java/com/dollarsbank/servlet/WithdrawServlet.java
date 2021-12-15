@@ -81,6 +81,7 @@ public class WithdrawServlet extends HttpServlet {
 					throw new SQLException();
 				
 				pw.println(PrintUtility.getPageStart(true));
+				pw.println(PrintUtility.getAlert("Successfully withdrew $" + request.getParameter("withdraw") + ".", "alert-success"));
 				pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), currentBalance, user.getString("email"), user.getString("address")));
 				pw.println(PrintUtility.getPageEnd(true));
 				
@@ -90,7 +91,7 @@ public class WithdrawServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 
 	}

@@ -124,12 +124,13 @@ public class TransferServlet extends HttpServlet {
 					
 					// Return home menu
 					pw.println(PrintUtility.getPageStart(true));
+					pw.println(PrintUtility.getAlert("Successfully transfered $" + request.getParameter("transfer") + " to " + request.getParameter("toAccount") + ".", "alert-success"));
 					pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), currentBalance, user.getString("email"), user.getString("address")));
 					pw.println(PrintUtility.getPageEnd(true));
 					
 				} else {
 					pw.println(PrintUtility.getPageStart(true));
-					pw.println("<h1>Account name '" + toAccountUsername + "' does not exist. Try again.</h1>");
+					pw.println(PrintUtility.getAlert("Account name '" + toAccountUsername + "' does not exist.", "alert-danger"));
 					pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), user.getDouble("balance"), user.getString("email"), user.getString("address")));
 					pw.println(PrintUtility.getPageEnd(true));
 				}
@@ -140,7 +141,7 @@ public class TransferServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 
 	}

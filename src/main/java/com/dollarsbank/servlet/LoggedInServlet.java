@@ -71,7 +71,7 @@ public class LoggedInServlet extends HttpServlet {
 				
 			} else {
 				pw.println(PrintUtility.getPageStart(false));
-				pw.println("<br><br><br><h1 style=\"text-align:center;\">Invalid credentials! Try again.</h1>");
+				pw.println(PrintUtility.getAlert("Invalid credentials! Try again.", "alert-warning"));
 				pw.println(PrintUtility.getPageEnd(false));
 			}
 
@@ -80,7 +80,7 @@ public class LoggedInServlet extends HttpServlet {
 		} catch (SQLException e) {
 
 			// SQL exception
-			pw.println("<h1>Error with SQL connection, cannot retrieve information at this time.</h1>");
+			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 
 		}
 

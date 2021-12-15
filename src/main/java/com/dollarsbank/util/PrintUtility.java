@@ -153,7 +153,6 @@ public class PrintUtility {
 	private static String homeMenu = "	<div style=\"text-align:center;\">\r\n"
 			+ "		<br>\r\n"
 			+ "		<br>\r\n"
-			+ "		<br>\r\n"
 			+ "		<h1>What would you like to do today?</h1>\r\n"
 			+ "		<br>\r\n"
 			+ "		<br>\r\n"
@@ -195,6 +194,7 @@ public class PrintUtility {
 	}
 	
 	public static String getHomePage(int id, String username, double balance, String email, String address) {
+		String transactions = TransactionUtility.getFiveRecentTransactions(id);
 		return homeMenu + "<!-- Account information modal -->\r\n"
 				+ "	\r\n"
 				+ "	<div class=\"modal fade\" id=\"accountModal\"\r\n"
@@ -341,7 +341,7 @@ public class PrintUtility {
 				+ "						aria-label=\"Close\"></button></div>\r\n"
 				+ "						\r\n"
 				+ "				<div class=\"modal-body\">\r\n"
-				+ "					<p>Initial Deposit:</p>\r\n"
+				+ "					" + transactions + ""
 				+ "				</div>\r\n"
 				+ "				\r\n"
 				+ "				<div class=\"modal-footer\">\r\n"
@@ -384,6 +384,19 @@ public class PrintUtility {
 				+ "			</div>\r\n"
 				+ "		</div>\r\n"
 				+ "	</div>";
+	}
+	
+	public static String getAlert(String message, String alertType) {
+		return "		<br><div class=\"alert " + alertType + " alert-dismissible fade show\" role=\"alert\">\r\n"
+				+ "		  " + message + "\r\n"
+				+ "		  <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>\r\n"
+				+ "		</div>";
+	}
+	
+	public static String returnError(String message) {
+		return getPageStart(false) +
+		getAlert(message, "alert-danger") +
+		getPageEnd(false);
 	}
 
 }

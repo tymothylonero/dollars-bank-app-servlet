@@ -96,6 +96,7 @@ public class NewAccountServlet extends HttpServlet {
 				}
 				
 				pw.println(PrintUtility.getPageStart(true));
+				pw.println(PrintUtility.getAlert("Successfully created your new account!", "alert-success"));
 				pw.println(PrintUtility.getHomePage(newUser.getInt("id"), newUser.getString("username"), newUser.getDouble("balance"), newUser.getString("email"), newUser.getString("address")));
 				pw.println(PrintUtility.getPageEnd(true));
 			} else {
@@ -103,9 +104,7 @@ public class NewAccountServlet extends HttpServlet {
 			}
 			
 		} catch (SQLException e) {
-			pw.println(PrintUtility.getPageStart(false));
-			pw.println("<h1>Error with SQL connection, cannot retrieve information at this time.</h1>");
-			pw.println(PrintUtility.getPageEnd(false));
+			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 
 	}
