@@ -101,7 +101,7 @@ public class TransferServlet extends HttpServlet {
 					// Insert transaction for user
 					String timestamp = new Date().toString();
 					
-					insertTransaction.setString(1, "Funds transfer");
+					insertTransaction.setString(1, "Funds Transfer");
 					insertTransaction.setString(2, "Sent $" + amount + " to " + toUser.getString("username") + ": " + request.getParameter("description"));
 					insertTransaction.setString(3, amount);
 					insertTransaction.setString(4, id);
