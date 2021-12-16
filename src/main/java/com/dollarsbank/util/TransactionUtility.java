@@ -11,11 +11,13 @@ public class TransactionUtility {
 	private static Connection conn;
 	private static PreparedStatement getTransactions;
 	
+	// Return five recent transactions with the account
 	public static String getFiveRecentTransactions(int accountId) {
 		
 		String html = "";
 		
 		try {
+			// Get the transactions from the MySQL server
 			conn = ConnectionManager.getConnection();
 			getTransactions = conn.prepareStatement("SELECT * FROM transaction WHERE user_id=? ORDER BY id DESC LIMIT 5");
 			
@@ -23,6 +25,7 @@ public class TransactionUtility {
 			
 			ResultSet trans = getTransactions.executeQuery();
 			
+			// Create the HTML which displays the recent transactions
 			while(trans.next()) {
 				html += "<h5>" + trans.getString("type") + "</h5>";
 				html += "<p>Amount: $" + trans.getString("amount") + "</p>";
@@ -39,6 +42,7 @@ public class TransactionUtility {
 			getTransactions.close();
 			
 		} catch (Exception e) {
+			// Error with MySQL server
 			html = "Error with SQL connection, cannot retrieve information at this time.";
 		}
 		

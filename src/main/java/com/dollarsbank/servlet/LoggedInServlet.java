@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dollarsbank.util.PrintUtility;
 
 public class LoggedInServlet extends HttpServlet {
+	
+	// Servlet which allows users to log into their DollarsBank account
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,43 +52,35 @@ public class LoggedInServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 
-		//pw.println("<html>");
-		//pw.println("<head> <title>DollarsBank</title> </head>");
-		//pw.println("<body>");
-		
-
 		try {
-			// Put user input into SQL statement
+
+			// Find the given credentials in the MySQL database
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
-
-			// Execute query
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-
+				// Return the logged-in home page
 				pw.println(PrintUtility.getPageStart(true));
 				pw.println(PrintUtility.getHomePage(rs.getInt("id"), rs.getString("username"), rs.getDouble("balance"), rs.getString("email"), rs.getString("address")));
 				pw.println(PrintUtility.getPageEnd(true));
 				
 			} else {
+				// Return home page with invalid credentials alert
 				pw.println(PrintUtility.getPageStart(false));
 				pw.println(PrintUtility.getAlert("Invalid credentials! Try again.", "alert-warning"));
+				pw.println(PrintUtility.getWelcomePage());
 				pw.println(PrintUtility.getPageEnd(false));
 			}
 
 			rs.close();
 
 		} catch (SQLException e) {
-
-			// SQL exception
+			// Error with MySQL server
 			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 
 		}
 
-		//pw.println("</body>");
-		//pw.println("</html>");
-		//pw.println("<script>alert(\"Could not find a user with those credentials. Try again.\")</script>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

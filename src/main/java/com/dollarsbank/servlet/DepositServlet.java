@@ -18,6 +18,8 @@ import com.dollarsbank.util.PrintUtility;
 
 public class DepositServlet extends HttpServlet {
 	
+	// Servlet which allows users to make deposits into their accounts
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Connection conn;
@@ -55,12 +57,14 @@ public class DepositServlet extends HttpServlet {
 		
 		try {
 			
+			// Get the current user's information
 			String id = request.getParameter("id");
 			getUser.setString(1, id);
 			ResultSet user = getUser.executeQuery();
 			
 			if(user.next()) {
 				
+				// Add funds to the user's balance
 				double currentBalance = user.getDouble("balance");
 				currentBalance += Double.parseDouble(request.getParameter("deposit"));
 				editBalance.setString(1, currentBalance + "");
@@ -70,6 +74,7 @@ public class DepositServlet extends HttpServlet {
 				if(result == 0)
 					throw new SQLException();
 				
+				// Create a new deposit transaction for the user
 				insertTransaction.setString(1, "Deposit");
 				insertTransaction.setString(2, request.getParameter("description"));
 				insertTransaction.setString(3, request.getParameter("deposit"));
@@ -80,6 +85,7 @@ public class DepositServlet extends HttpServlet {
 				if(result == 0)
 					throw new SQLException();
 				
+				// Return to the home page with a success alert
 				pw.println(PrintUtility.getPageStart(true));
 				pw.println(PrintUtility.getAlert("Successfully deposited $" + request.getParameter("deposit") + ".", "alert-success"));
 				pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), currentBalance, user.getString("email"), user.getString("address")));
@@ -91,6 +97,7 @@ public class DepositServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
+			// Error with MySQL server
 			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 

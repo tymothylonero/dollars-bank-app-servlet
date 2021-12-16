@@ -12,6 +12,8 @@ public class ConnectionManager {
 	
 	public static Connection getConnection() {
 		
+		// Make a connection to the MySQL database
+		
 		Connection conn = null;
 		
 		try {

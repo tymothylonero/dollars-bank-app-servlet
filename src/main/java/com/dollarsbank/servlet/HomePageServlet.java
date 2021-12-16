@@ -29,6 +29,7 @@ public class HomePageServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		pw.println(PrintUtility.getPageStart(false));
+		pw.println(PrintUtility.getWelcomePage());
 		pw.println(PrintUtility.getPageEnd(false));
 
 	}

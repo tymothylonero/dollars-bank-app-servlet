@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dollarsbank.util.PrintUtility;
 
 public class NewAccountServlet extends HttpServlet {
+	
+	// Servlet which allows users to create a new account with DollarsBank
 
 	private static final long serialVersionUID = 1L;
 
@@ -53,6 +55,7 @@ public class NewAccountServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// Get user input
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -70,19 +73,20 @@ public class NewAccountServlet extends HttpServlet {
 		
 		try {
 			
+			// Fail to create account if username already exists
 			if(userExists(username)) {
-				pw.println(PrintUtility.getPageStart(false));
-				pw.println(PrintUtility.getErrorAlert("Username already exists! Try another one."));
-				pw.println(PrintUtility.getPageEnd(false));
+				pw.println(PrintUtility.returnError("Username already exists! Try another one."));
 				return;
 			}
 			
+			// Create the new user in the MySQL database
 			ResultSet newUser = insertUser(username, password, email, address, depositAmount);
 			
 			if(newUser.next()) {
 				
 				if(depositAmount > 0) {
 					
+					// Create a new transaction if deposit amount is greater than $0
 					insertTransaction.setString(1, "Deposit");
 					insertTransaction.setString(2, "Initial Deposit");
 					insertTransaction.setString(3, newUser.getString("balance"));
@@ -94,7 +98,7 @@ public class NewAccountServlet extends HttpServlet {
 						throw new SQLException();
 					
 				}
-				
+				// Return the home page of the new account
 				pw.println(PrintUtility.getPageStart(true));
 				pw.println(PrintUtility.getAlert("Successfully created your new account!", "alert-success"));
 				pw.println(PrintUtility.getHomePage(newUser.getInt("id"), newUser.getString("username"), newUser.getDouble("balance"), newUser.getString("email"), newUser.getString("address")));
@@ -104,6 +108,7 @@ public class NewAccountServlet extends HttpServlet {
 			}
 			
 		} catch (SQLException e) {
+			// Error with MySQL server
 			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 

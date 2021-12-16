@@ -2,6 +2,9 @@ package com.dollarsbank.util;
 
 public class PrintUtility {
 	
+	// This class contains all the HTML for various parts of the webapp
+	
+	// Base starting HTML
 	private static String basePage = "<!DOCTYPE html>\r\n"
 			+ "<html>\r\n"
 			+ "<head>\r\n"
@@ -17,6 +20,7 @@ public class PrintUtility {
 			+ "</head>\n"
 			+ "<body>";
 	
+	// Base ending HTML
 	private static String baseEnd = "<script\r\n"
 			+ "src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js\"\r\n"
 			+ "integrity=\"sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ\"\r\n"
@@ -25,6 +29,7 @@ public class PrintUtility {
 			+ "</body>\r\n"
 			+ "</html>";
 	
+	// Creates a navbar for a logged out user
 	private static String loggedOutNav = "	<div class=\"collapse\" id=\"navbarToggleExternalContent\">\r\n"
 			+ "	  <div class=\"bg-dark p-4\">\r\n"
 			+ "	    <h5 class=\"text-white h4\">Welcome to Dollars Bank</h5>\r\n"
@@ -47,6 +52,7 @@ public class PrintUtility {
 			+ "		</div>\r\n"
 			+ "	</nav>";
 	
+	// Creates a navbar for a logged in user
 	private static String loggedInNav = "	<div class=\"collapse\" id=\"navbarToggleExternalContent\">\r\n"
 			+ "	  <div class=\"bg-dark p-4\">\r\n"
 			+ "	    <h5 class=\"text-white h4\">Welcome to Dollars Bank</h5>\r\n"
@@ -68,6 +74,7 @@ public class PrintUtility {
 			+ "		</div>\r\n"
 			+ "	</nav>";
 	
+	// Creates the sign-up and login modals for when a user is logged out
 	private static String loggedOutModals = "	<!-- Login modal -->\r\n"
 			+ "\r\n"
 			+ "	<div class=\"modal fade\" id=\"loginModal\" data-bs-backdrop=\"static\"\r\n"
@@ -150,6 +157,7 @@ public class PrintUtility {
 	
 	private static String loggedInModals = "";
 	
+	// Creates the home menu with all the buttons to perform various account actions
 	private static String homeMenu = "	<div style=\"text-align:center;\">\r\n"
 			+ "		<br>\r\n"
 			+ "		<br>\r\n"
@@ -170,6 +178,7 @@ public class PrintUtility {
 			+ "		<div><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#passwordModal\">Change Password</button></div>\r\n"
 			+ "	</div>";
 	
+	// Returns the upper part of the HTML document, depending on if a user is logged in or not
 	public static String getPageStart(boolean loggedIn) {
 		
 		if(loggedIn) {
@@ -180,6 +189,7 @@ public class PrintUtility {
 		
 	}
 	
+	// Returns the lower part of the HTML document, depending on if a user is logged in or not
 	public static String getPageEnd(boolean loggedIn) {
 		
 		if(loggedIn) {
@@ -189,10 +199,7 @@ public class PrintUtility {
 		}
 	}
 	
-	public static String getErrorAlert(String error) {
-		return "<script>alert(\"" + error + "\")</script>";
-	}
-	
+	// Returns the modals for a logged in user, already pre-populated with the user's information
 	public static String getHomePage(int id, String username, double balance, String email, String address) {
 		String transactions = TransactionUtility.getFiveRecentTransactions(id);
 		return homeMenu + "<!-- Account information modal -->\r\n"
@@ -386,6 +393,7 @@ public class PrintUtility {
 				+ "	</div>";
 	}
 	
+	// Creates an alert to be displayed
 	public static String getAlert(String message, String alertType) {
 		return "		<br><div class=\"alert " + alertType + " alert-dismissible fade show\" role=\"alert\">\r\n"
 				+ "		  " + message + "\r\n"
@@ -393,10 +401,28 @@ public class PrintUtility {
 				+ "		</div>";
 	}
 	
+	// Returns the home page, while logging the user off with a given error message
 	public static String returnError(String message) {
 		return getPageStart(false) +
 		getAlert(message, "alert-danger") +
+		getWelcomePage() + 
 		getPageEnd(false);
+	}
+	
+	// Returns the home page of the web app
+	public static String getWelcomePage() {
+		return "	<div style=\"text-align:center;\">\r\n"
+				+ "		<br>\r\n"
+				+ "		<br>\r\n"
+				+ "		<h2>Welcome to DollarsBank!</h2>\r\n"
+				+ "		<br>\r\n"
+				+ "		<br>\r\n"
+				+ "		<img src=\"https://stocksnap.io/photo/ITA18FXIBL/editor\" alt=\"Stock picture of money\" width=\"700\">\r\n"
+				+ "		<br>\r\n"
+				+ "		<br>\r\n"
+				+ "		<br>\r\n"
+				+ "		<h5>Create a new account in the upper-right, or log into an existing account.</h5>\r\n"
+				+ "	</div>";
 	}
 
 }

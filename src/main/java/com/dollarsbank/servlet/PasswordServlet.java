@@ -17,6 +17,8 @@ import com.dollarsbank.util.PrintUtility;
 
 public class PasswordServlet extends HttpServlet {
 	
+	// Servlet which allows a user to change the password on their account
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Connection conn;
@@ -50,7 +52,7 @@ public class PasswordServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		try {
-			
+			// Get the current user's information
 			String id = request.getParameter("id");
 			getUser.setString(1, id);
 			ResultSet user = getUser.executeQuery();
@@ -61,11 +63,13 @@ public class PasswordServlet extends HttpServlet {
 				String oldPassword = request.getParameter("oldpassword");
 				String newPassword = request.getParameter("newpassword");
 				
+				// Check if the user can guess their old password
 				if(current.equals(oldPassword)) {
 					
+					// Check if the user entered a new password
 					if(!current.equals(newPassword)) {
 	
-						// Change password
+						// Change the user's password
 						changePassword.setString(1, newPassword);
 						changePassword.setString(2, id);
 						int result = changePassword.executeUpdate();
@@ -73,6 +77,7 @@ public class PasswordServlet extends HttpServlet {
 						if(result == 0)
 							throw new SQLException();
 						
+						// Return the home page with a success alert
 						pw.println(PrintUtility.getPageStart(true));
 						pw.println(PrintUtility.getAlert("Successfully changed your password.", "alert-success"));
 						pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), user.getDouble("balance"), user.getString("email"), user.getString("address")));
@@ -99,6 +104,7 @@ public class PasswordServlet extends HttpServlet {
 			}
 			
 		} catch (Exception e) {
+			// Error with MySQL server
 			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 

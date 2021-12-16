@@ -18,6 +18,8 @@ import com.dollarsbank.util.PrintUtility;
 
 public class TransferServlet extends HttpServlet {
 	
+	// Servlet which allows users to transfer funds from their account to another account
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Connection conn;
@@ -64,6 +66,7 @@ public class TransferServlet extends HttpServlet {
 		
 		try {
 			
+			// Get the current user's information
 			String id = request.getParameter("id");
 			String toAccountUsername = request.getParameter("toAccount");
 			getUser.setString(1, id);
@@ -71,6 +74,7 @@ public class TransferServlet extends HttpServlet {
 			
 			if(user.next()) {
 				
+				// Get the account to transfer to
 				getReceiver.setString(1, toAccountUsername);
 				ResultSet toUser = getReceiver.executeQuery();
 				
@@ -78,7 +82,7 @@ public class TransferServlet extends HttpServlet {
 					
 					String amount = request.getParameter("transfer");
 					
-					// Edit user's balance
+					// Change the user's balance
 					double currentBalance = user.getDouble("balance");
 					currentBalance -= Double.parseDouble(amount);
 					editBalance.setString(1, currentBalance + "");
@@ -88,7 +92,7 @@ public class TransferServlet extends HttpServlet {
 					if(result == 0)
 						throw new SQLException();
 					
-					// Edit receiver's balance
+					// Change the receiver's balance
 					double receiverBalance = toUser.getDouble("balance");
 					receiverBalance += Double.parseDouble(amount);
 					editReceiverBalance.setString(1, receiverBalance + "");
@@ -98,7 +102,7 @@ public class TransferServlet extends HttpServlet {
 					if(result == 0)
 						throw new SQLException();
 					
-					// Insert transaction for user
+					// Insert a new transaction for the user
 					String timestamp = new Date().toString();
 					
 					insertTransaction.setString(1, "Funds Transfer");
@@ -111,7 +115,7 @@ public class TransferServlet extends HttpServlet {
 					if(result == 0)
 						throw new SQLException();
 					
-					// Insert transaction for receiver
+					// Insert a new transaction for the receiver
 					insertReceiverTransaction.setString(1, "Funds transfer");
 					insertReceiverTransaction.setString(2, "Received $" + amount + " from " + user.getString("username") + ": " + request.getParameter("description"));
 					insertReceiverTransaction.setString(3, amount);
@@ -122,13 +126,14 @@ public class TransferServlet extends HttpServlet {
 					if(result == 0)
 						throw new SQLException();
 					
-					// Return home menu
+					// Return to the home menu with success alert
 					pw.println(PrintUtility.getPageStart(true));
 					pw.println(PrintUtility.getAlert("Successfully transfered $" + request.getParameter("transfer") + " to " + request.getParameter("toAccount") + ".", "alert-success"));
 					pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), currentBalance, user.getString("email"), user.getString("address")));
 					pw.println(PrintUtility.getPageEnd(true));
 					
 				} else {
+					// Return but with an 'account does not exist' alert
 					pw.println(PrintUtility.getPageStart(true));
 					pw.println(PrintUtility.getAlert("Account name '" + toAccountUsername + "' does not exist.", "alert-danger"));
 					pw.println(PrintUtility.getHomePage(user.getInt("id"), user.getString("username"), user.getDouble("balance"), user.getString("email"), user.getString("address")));
@@ -141,6 +146,7 @@ public class TransferServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
+			// Error with MySQL server
 			pw.println(PrintUtility.returnError("Error with SQL connection, cannot retrieve information at this time."));
 		}
 
